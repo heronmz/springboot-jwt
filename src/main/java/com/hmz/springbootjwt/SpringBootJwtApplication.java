@@ -18,16 +18,16 @@ public class SpringBootJwtApplication {
 		SpringApplication.run(SpringBootJwtApplication.class, args);
 	}
 
-	@EnableWebSecurity
+	@EnableWebSecurity //Spring security turns on
 	@Configuration
 	class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			http.csrf().disable()
-				.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+				.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)//we add our filter
 				.authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/login").permitAll()
+				.antMatchers(HttpMethod.POST, "/login").permitAll() //login is public url
 				.anyRequest().authenticated();
 		}
 	}
